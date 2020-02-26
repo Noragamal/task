@@ -1,23 +1,22 @@
-'use strict';
+const Sequelize = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  const Bought = sequelize.define('Bought', {
-    ProductId: sequelize.INTEGER,
-    CustomerId: sequelize.INTEGER,
-    Time_range: {
-      Start_date: sequelize.Date,
-      End_date: sequelize.Date
-  }
+  const Bought = sequelize.define('bought', {
+   // "productID": sequelize.INTEGER,
+    //"customerID": sequelize.INTEGER,
+    Time_range:[ {
+      Start_date: Sequelize.Start_date,End_date: Sequelize.End_date
+  }]
 
   }, {});
   Bought.associate = function(models) {
     // associations can be defined here
-    Bought.belongsTo(models.Customer, {
-      foreignKey: 'CustomerId',
+    Bought.belongsTo(models.customer, {
+      foreignKey: 'customerID',
       as: 'buyer',
       onDelete: 'CASCADE',
     });
-    Bought.belongsTo(models.Product, {
-      foreignKey: 'ProductId',
+    Bought.hasMany(models.product, {
+      foreignKey: 'productID',
       as: 'boughtprod',
       onDelete: 'CASCADE',
     });
